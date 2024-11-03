@@ -6,7 +6,6 @@ const sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_US
   dialect: 'postgres',
 });
 
-// Connection logic
 const conectaNaDatabase = async () => {
   let attempts = 5;
   while (attempts) {

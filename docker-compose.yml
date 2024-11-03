@@ -14,16 +14,16 @@ services:
 
   app:
     build: 
-      context: .  # O diretório onde está o Dockerfile da sua aplicação
-      dockerfile: Dockerfile  # O nome do seu Dockerfile (caso tenha um nome diferente, mude aqui)
+      context: .
+      dockerfile: Dockerfile  
     ports:
-      - "3000:3000"  # Mapeia a porta 3000 do container para a porta 3000 do host
+      - "3000:3000"
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}  # Variáveis de ambiente para a conexão com o PostgreSQL
+      - POSTGRES_USER=${POSTGRES_USER}  
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
     depends_on:
-      - postgres  # Garante que o serviço postgres seja iniciado antes da aplicação
+      - postgres 
 
 volumes:
   pg_data:
