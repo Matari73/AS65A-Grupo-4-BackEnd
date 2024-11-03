@@ -12,5 +12,18 @@ services:
     volumes:
       - pg_data:/bitnami/postgresql
 
+  app:
+    build: 
+      context: .  # O diretório onde está o Dockerfile da sua aplicação
+      dockerfile: Dockerfile  # O nome do seu Dockerfile (caso tenha um nome diferente, mude aqui)
+    ports:
+      - "3000:3000"  # Mapeia a porta 3000 do container para a porta 3000 do host
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}  # Variáveis de ambiente para a conexão com o PostgreSQL
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    depends_on:
+      - postgres  # Garante que o serviço postgres seja iniciado antes da aplicação
+
 volumes:
   pg_data:
