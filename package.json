@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Matari73/AS65A-Grupo-4-BackEnd#readme",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.21.1"
   },
   "devDependencies": {
