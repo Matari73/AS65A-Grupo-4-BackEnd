@@ -24,4 +24,4 @@ const conectaNaDatabase = async () => {
   process.exit(1);
 };
 
-module.exports = conectaNaDatabase;
+module.exports = { sequelize, conectaNaDatabase };
