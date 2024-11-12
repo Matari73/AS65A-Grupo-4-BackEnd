@@ -1,43 +1,54 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Usuario = require('../models/Usuario');
 require('dotenv').config();
-const Usuario = require('../models/user');
 
-const login = async (req, res) => {
-  const { nome_usuario, senha } = req.body;
+const generateToken = (user) => {
+  return jwt.sign({ id: user.id_usuario, tipo_acesso: user.tipo_acesso }, process.env.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+};
+
+exports.register = async (req, res) => {
+  const { nome_usuario, senha, tipo_acesso } = req.body;
 
   try {
-    // Buscando o usuário no banco de dados
-    const usuario = await Usuario.findOne({ where: { nome_usuario } });
-    if (!usuario) {
-      console.log('Usuário não encontrado');
-      return res.status(401).json({ error: 'Credenciais inválidas' });
+    const existingUser = await Usuario.findOne({ where: { nome_usuario } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Usuário já existe.' });
     }
 
-    console.log('Senha fornecida:', senha);
-    console.log('Hash da senha:', usuario.senha);
+    const hashedPassword = await bcrypt.hash(senha, 10);
 
-    // Comparando a senha fornecida com o hash armazenado
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
-    if (!senhaValida) {
-      console.log('Senha inválida');
-      return res.status(401).json({ error: 'Credenciais inválidas' });
-    }
+    const user = await Usuario.create({
+      nome_usuario,
+      senha: hashedPassword,
+      tipo_acesso,
+    });
 
-    // Gerando o token JWT
-    const token = jwt.sign(
-      { id: usuario.id_usuario, tipo_acesso: usuario.tipo_acesso },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    console.log('Login bem-sucedido');
-    return res.json({ token });
+    res.status(201).json({ message: 'Usuário criado com sucesso.' });
   } catch (error) {
-    console.error('Erro no login:', error);
-    res.status(500).json({ error: 'Erro no login' });
+    res.status(500).json({ message: 'Erro ao registrar usuário.' });
   }
 };
 
+exports.login = async (req, res) => {
+  const { nome_usuario, senha } = req.body;
 
-module.exports = { login };
+  try {
+    const user = await Usuario.findOne({ where: { nome_usuario } });
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
+    }
+
+    const isMatch = await bcrypt.compare(senha, user.senha);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
+    }
+
+    const token = generateToken(user);
+    res.status(200).json({ token });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao fazer login.' });
+  }
+};

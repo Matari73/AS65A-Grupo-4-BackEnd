@@ -1,21 +1,22 @@
 const express = require('express');
 const { conectaNaDatabase } = require('./db/db.js');
-const userRoutes = require('./routes/userRoutes.js');
-const seedAdminMaster = require('./scripts/createMasterAdmin.js');
+const authRoutes = require('./routes/authRoutes');
+const criarAdminMaster = require('./scripts/seed.js');
 
 const app = express();
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.status(200).send('Bem-vindo à Certificadora - Back-end');
+  res.status(200).send('Bem-vindo ao Sistema de Estoque');
 });
 
-app.use('/api', userRoutes);
-
 const startApp = async () => {
-    await conectaNaDatabase();
-    await seedAdminMaster();
+  const sequelize = await conectaNaDatabase();
+  await sequelize.sync({ force: true });
+  await criarAdminMaster();
 };
+
+app.use('/api/auth', authRoutes);
 
 startApp();
 
