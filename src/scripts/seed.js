@@ -8,7 +8,7 @@ async function criarAdminMaster() {
     if (!usuarioExistente) {
       const senhaHash = await bcrypt.hash('sua_senha_segura', 10);
       await Usuario.create({
-        nome_usuario: 'admin_master',
+        nome: 'admin_master',
         senha: senhaHash,
         tipo_acesso: 'admin_master'
       });

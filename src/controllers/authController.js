@@ -4,16 +4,16 @@ const Usuario = require('../models/Usuario');
 require('dotenv').config();
 
 const generateToken = (user) => {
-  return jwt.sign({ id: user.id_usuario, tipo_acesso: user.tipo_acesso }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: user.id, tipo_acesso: user.tipo_acesso }, process.env.JWT_SECRET, {
     expiresIn: '1h',
   });
 };
 
 exports.register = async (req, res) => {
-  const { nome_usuario, senha, tipo_acesso } = req.body;
+  const { nome, senha, tipo_acesso } = req.body;
 
   try {
-    const existingUser = await Usuario.findOne({ where: { nome_usuario } });
+    const existingUser = await Usuario.findOne({ where: { nome } });
     if (existingUser) {
       return res.status(400).json({ message: 'Usuário já existe.' });
     }
@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(senha, 10);
 
     const user = await Usuario.create({
-      nome_usuario,
+      nome,
       senha: hashedPassword,
       tipo_acesso,
     });
@@ -33,10 +33,10 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { nome_usuario, senha } = req.body;
+  const { nome, senha } = req.body;
 
   try {
-    const user = await Usuario.findOne({ where: { nome_usuario } });
+    const user = await Usuario.findOne({ where: { nome } });
     if (!user) {
       return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
     }

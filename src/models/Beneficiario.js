@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db/db');
 
-const Usuario = sequelize.define('Usuario', {
+const Beneficiario = sequelize.define('Beneficiario', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -10,19 +10,18 @@ const Usuario = sequelize.define('Usuario', {
   nome: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
-  senha: {
+  tipo: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  tipo_acesso: {
-    type: DataTypes.ENUM('admin', 'admin_master'),
+  contato: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
-  tableName: 'usuarios',
+  tableName: 'beneficiarios',
   timestamps: false,
 });
 
-module.exports = Usuario;
+module.exports = Beneficiario;
