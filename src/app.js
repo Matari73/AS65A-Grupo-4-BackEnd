@@ -5,7 +5,7 @@ const { conectaNaDatabase } = require('./db/db.js');
 const authRoutes = require('./routes/authRoutes');
 const criarAdminMaster = require('./scripts/seed.js');
 
-const { Beneficiario, Endereco, Doacao, Produto, Estoque, Usuario } = require('./models/index.js');
+const { Beneficiario, Doacao, Produto, Estoque, Usuario } = require('./models/index.js');
 
 const app = express();
 app.use(express.json());

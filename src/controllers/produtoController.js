@@ -32,10 +32,10 @@ class ProdutoController {
     };
 
     static async listarProdutoPorId(req, res) {
-        const { id } = req.params;
+        const { id_produto } = req.params;
 
         try {
-            const produto = await Produto.findByPk(id);
+            const produto = await Produto.findByPk(id_produto);
             if (!produto) {
                 return res.status(404).json({ message: 'Produto não encontrado.' });
             }
@@ -48,11 +48,11 @@ class ProdutoController {
     }
 
     static async atualizarProduto(req, res) {
-        const { id } = req.params;
+        const { id_produto } = req.params;
         const { nome, categoria } = req.body;
 
         try {
-            const produto = await Produto.findByPk(id);
+            const produto = await Produto.findByPk(id_produto);
             if (!produto) {
                 return res.status(404).json({ message: 'Produto não encontrado.' });
             }
@@ -70,9 +70,9 @@ class ProdutoController {
     }
 
     static async deletarProduto(req, res) {
-        const { id } = req.params;
+        const { id_produto } = req.params;
         try {
-            const produto = await Produto.findByPk(id);
+            const produto = await Produto.findByPk(id_produto);
             if (!produto) {
                 return res.status(404).json({ message: 'Produto não encontrado.' });
             }
