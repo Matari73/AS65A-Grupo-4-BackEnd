@@ -2,7 +2,7 @@ const Produto = require("../models/Produto.js");
 
 class ProdutoController {
     static async criarProduto(req, res) {
-        const { nome, categoria, tipo, quantidade_estoque, quantidade_min } = req.body;
+        const { nome, categoria } = req.body;
         try {
             const produtoExiste = await Produto.findOne({ where: { nome } });
             if (produtoExiste) {
@@ -12,9 +12,6 @@ class ProdutoController {
             const novoProduto = await Produto.create({
                 nome,
                 categoria,
-                tipo,
-                quantidade_estoque,
-                quantidade_min
             });
             console.log("Produto criado:", novoProduto);
             res.status(201).json({ message: 'Produto criado com sucesso.' });
@@ -52,7 +49,7 @@ class ProdutoController {
 
     static async atualizarProduto(req, res) {
         const { id } = req.params;
-        const { nome, categoria, tipo, quantidade_estoque, quantidade_min } = req.body;
+        const { nome, categoria } = req.body;
 
         try {
             const produto = await Produto.findByPk(id);
@@ -63,9 +60,6 @@ class ProdutoController {
             await produto.update({
                 nome,
                 categoria,
-                tipo,
-                quantidade_estoque,
-                quantidade_min
             });
 
             res.status(200).json({ message: 'Produto atualizado com sucesso.', produto });

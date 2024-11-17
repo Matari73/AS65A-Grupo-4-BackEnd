@@ -15,18 +15,6 @@ const Produto = sequelize.define('Produto', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  tipo: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  quantidade_estoque: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  quantidade_min: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
 }, {
   tableName: 'produtos',
   timestamps: false,
