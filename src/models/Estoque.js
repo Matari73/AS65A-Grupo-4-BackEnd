@@ -12,12 +12,12 @@ const Estoque = sequelize.define('Estoque', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  produto_id: {
+  id_produto: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: Produto,
-      key: 'id'
+      key: 'id_produto'
     }
   },
   created_at: {

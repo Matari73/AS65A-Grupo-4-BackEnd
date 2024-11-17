@@ -21,7 +21,7 @@ const Doacao = sequelize.define('Doacao', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  produto_id: {
+  id_produto: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {

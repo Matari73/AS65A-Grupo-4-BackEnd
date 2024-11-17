@@ -6,20 +6,20 @@ const Usuario = require('./Usuario');
 const Distribuicao = require('./Distribuicao');
 
 // Produto tem muitas Doacoes (1:N)
-Produto.hasMany(Doacao, { foreignKey: 'produto_id', as: 'doacoes' });
-Doacao.belongsTo(Produto, { foreignKey: 'produto_id', as: 'produtos' });
+Produto.hasMany(Doacao, { foreignKey: 'id_produto', as: 'doacoes' });
+Doacao.belongsTo(Produto, { foreignKey: 'id_produto', as: 'produtos' });
 
 // Produto tem muitos estoque (1:N)
-Produto.hasMany(Estoque, { foreignKey: 'produto_id', as: 'estoque' });
-Estoque.belongsTo(Produto, { foreignKey: 'produto_id', as: 'produtos' });
+Produto.hasMany(Estoque, { foreignKey: 'id_produto', as: 'estoque' });
+Estoque.belongsTo(Produto, { foreignKey: 'id_produto', as: 'produtos' });
 
 // Usuario tem muitos estoque (1:N) - Responsável pelos estoque
 Usuario.hasMany(Estoque, { foreignKey: 'usuario_id', as: 'estoque' });
 Estoque.belongsTo(Usuario, { foreignKey: 'usuario_id', as: 'usuarios' });
 
 // Produto tem muitas Distribuicoes (1:N)
-Produto.hasMany(Distribuicao, { foreignKey: 'produto_id', as: 'distribuicoes' });
-Distribuicao.belongsTo(Produto, { foreignKey: 'produto_id', as: 'produtos' });
+Produto.hasMany(Distribuicao, { foreignKey: 'id_produto', as: 'distribuicoes' });
+Distribuicao.belongsTo(Produto, { foreignKey: 'id_produto', as: 'produtos' });
 
 // Distribuicao tem muitos Beneficiarios (1:N)
 Distribuicao.hasMany(Beneficiario, { foreignKey: 'distribuicao_id', as: 'beneficiarios' });

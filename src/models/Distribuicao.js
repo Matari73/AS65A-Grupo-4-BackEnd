@@ -16,7 +16,7 @@ const Distribuicao = sequelize.define('Distribuicao', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  produto_id: {
+  id_produto: {
     type: DataTypes.INTEGER,
     references: {
       model: 'produtos',
@@ -42,7 +42,7 @@ const Distribuicao = sequelize.define('Distribuicao', {
     allowNull: false,
   },
 }, {
-  tableName: 'distribuicoes', 
+  tableName: 'distribuicoes',
   timestamps: false,
 });
 
