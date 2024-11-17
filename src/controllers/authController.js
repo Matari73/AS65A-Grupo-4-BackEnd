@@ -4,7 +4,7 @@ const Usuario = require('../models/Usuario');
 require('dotenv').config();
 
 const generateToken = (user) => {
-  return jwt.sign({ id: user.id, tipo_acesso: user.tipo_acesso }, process.env.JWT_SECRET, {
+  return jwt.sign({ id_usuario: user.id_usuario, tipo_acesso: user.tipo_acesso }, process.env.JWT_SECRET, {
     expiresIn: '1h',
   });
 };
@@ -38,12 +38,12 @@ exports.login = async (req, res) => {
   try {
     const user = await Usuario.findOne({ where: { nome } });
     if (!user) {
-      return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
+      return res.status(400).json({ message: 'Usuário ou senha inválid_usuarioos.' });
     }
 
     const isMatch = await bcrypt.compare(senha, user.senha);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
+      return res.status(400).json({ message: 'Usuário ou senha inválid_usuarioos.' });
     }
 
     const token = generateToken(user);
