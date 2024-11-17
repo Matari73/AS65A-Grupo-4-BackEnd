@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db/db.js');
-const Beneficiario = require('./Beneficiario.js');
+const Participante = require('./Participante.js');
 
 const Distribuicao = sequelize.define('Distribuicao', {
   id: {
@@ -24,10 +24,10 @@ const Distribuicao = sequelize.define('Distribuicao', {
     },
     allowNull: false,
   },
-  beneficiario_id: {
+  Participante_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: Beneficiario,
+      model: Participante,
       key: 'id',
     },
     allowNull: false,
