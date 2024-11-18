@@ -3,6 +3,7 @@ const express = require('express');
 const routes = require('./routes/index.js');
 const { conectaNaDatabase } = require('./db/db.js');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 const criarAdminMaster = require('./scripts/seed.js');
 
 const { Participante, Produto, Estoque, Usuario, MovimentacaoProduto } = require('./models/index.js');
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json());
 routes(app)
 app.use('/', authRoutes);
+app.use('/users', userRoutes);
 
 const startApp = async () => {
   const sequelize = await conectaNaDatabase();
