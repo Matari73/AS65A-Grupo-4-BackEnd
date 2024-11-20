@@ -1,6 +1,7 @@
 const express = require('express');
 const produtos = require('./produtosRoutes.js');
 const participantes = require('./participantesRoutes.js')
+const movimentacoes = require('./movimentacaoRoutes.js')
 const cors = require('cors');
 
 const routes = (app) => {
@@ -12,6 +13,7 @@ const routes = (app) => {
     app.use(express.json());
     app.use(produtos);
     app.use(participantes);
+    app.use(movimentacoes);
 
     app.get('/', (req, res) => {
         res.status(200).send('Certificadora');
