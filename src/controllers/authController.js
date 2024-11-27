@@ -38,12 +38,12 @@ exports.login = async (req, res) => {
   try {
     const user = await Usuario.findOne({ where: { nome } });
     if (!user) {
-      return res.status(400).json({ message: 'Usuário ou senha inválid_usuarioos.' });
+      return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
     }
 
     const isMatch = await bcrypt.compare(senha, user.senha);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Usuário ou senha inválid_usuarioos.' });
+      return res.status(400).json({ message: 'Usuário ou senha inválidos.' });
     }
 
     const token = generateToken(user);
