@@ -18,7 +18,7 @@ const MovimentacaoProduto = sequelize.define('MovimentacaoProduto', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  id_responsavel: {
+  id_usuario: {
     type: DataTypes.INTEGER,
     references: {
       model: Usuario,
