@@ -126,6 +126,27 @@ class MovimentacaoController {
         }
     }
 
+    static async listarMovimentacoesPorNomeParticipante(req, res) {
+        const { nome } = req.params;
+        try {
+            const movimentacoes = await MovimentacaoProduto.findAll({
+                include: [
+                    {
+                        model: Participante,
+                        where: { nome },
+                        attributes: ['nome']
+                    },
+                    { model: Produto, attributes: ['nome'] },
+                    { model: Usuario, attributes: ['nome'] },
+                ],
+            });
+            res.status(200).json(movimentacoes);
+        } catch (error) {
+            console.error('Erro ao listar movimentações por responsável:', error);
+            res.status(500).json({ message: 'Erro ao listar movimentações.' });
+        }
+    }
+
     static async listarMovimentacoesPorTipo(req, res) {
         const { tipo_movimentacao } = req.params;
         try {

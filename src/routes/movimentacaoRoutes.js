@@ -9,5 +9,6 @@ routes.get('/movimentacoes', authMiddleware, MovimentacaoController.listarTodasM
 routes.get('/movimentacoes/produto/:nome', authMiddleware, MovimentacaoController.listarMovimentacoesPorNomeProduto);
 routes.get('/movimentacoes/responsavel/:nome', authMiddleware, MovimentacaoController.listarMovimentacoesPorNomeResponsavel);
 routes.get('/movimentacoes/tipo/:tipo_movimentacao', authMiddleware, MovimentacaoController.listarMovimentacoesPorTipo);
+routes.get('/movimentacoes/participante/:nome', authMiddleware, MovimentacaoController.listarMovimentacoesPorNomeParticipante);
 
 module.exports = routes;
