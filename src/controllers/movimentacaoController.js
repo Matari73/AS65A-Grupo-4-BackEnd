@@ -3,6 +3,7 @@ const Produto = require('../models/Produto');
 const Participante = require('../models/Participante');
 const Usuario = require('../models/Usuario');
 const Estoque = require('../models/Estoque');
+const EstoqueController = require('../controllers/estoqueController.js');
 const { sequelize } = require('../db/db');
 
 class MovimentacaoController {
@@ -25,30 +26,11 @@ class MovimentacaoController {
                 return res.status(404).json({ message: 'Participante não encontrado.' });
             }
 
-            let estoque = await Estoque.findOne({ where: { id_produto: produto.id_produto } });
-            if (!estoque) {
-                if (tipo_movimentacao === 'entrada') {
-                    estoque = await Estoque.create({
-                        id_produto: produto.id_produto,
-                        quantidade_disponivel: quantidade,
-                    });
-                } else {
-                    return res.status(400).json({ message: 'Estoque não encontrado e tipo de movimentação inválido para saída.' });
-                }
-            } else {
-                if (tipo_movimentacao === 'entrada') {
-                    estoque.quantidade_disponivel += quantidade;
-                } else if (tipo_movimentacao === 'saida') {
-                    if (estoque.quantidade_disponivel < quantidade) {
-                        return res.status(400).json({ message: 'Estoque insuficiente para a saída.' });
-                    }
-                    estoque.quantidade_disponivel -= quantidade;
-                } else {
-                    return res.status(400).json({ message: 'Tipo de movimentação inválido.' });
-                }
-            }
+            const estoqueAtualizado = await EstoqueController.atualizarEstoqueInterno(produto.id_produto, quantidade, tipo_movimentacao);
 
-            await estoque.save();
+            if (!estoqueAtualizado) {
+                return res.status(400).json({ message: 'Erro ao atualizar o estoque.' });
+            }
 
             const movimentacao = await MovimentacaoProduto.create({
                 tipo_movimentacao,
