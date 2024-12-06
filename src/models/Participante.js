@@ -13,15 +13,12 @@ const Participante = sequelize.define('Participante', {
   },
   nome: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   endereco: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   contato: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
 }, {
   tableName: 'participantes',
