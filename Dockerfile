@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # porta da aplicação
-EXPOSE 3002
+EXPOSE 3001
 
 # rodar a aplicação
 CMD ["npm", "run", "dev"]
