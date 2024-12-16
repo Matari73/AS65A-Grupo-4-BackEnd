@@ -3,7 +3,7 @@ const Usuario = require('../models/Usuario');
 const Produto = require('../models/Produto');
 const Participante = require('../models/Participante');
 const MovimentacaoProduto = require('../models/MovimentacaoProduto');
-const Estoque = require('../models/Estoque'); // Adicionando o modelo de Estoque
+const Estoque = require('../models/Estoque');
 
 async function criarSeed() {
   try {
