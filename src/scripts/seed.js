@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const Usuario = require('../models/Usuario');
 const Produto = require('../models/Produto');
+const Participante = require('../models/Participante');
 
 async function criarSeed() {
   try {
@@ -61,9 +62,34 @@ async function criarSeed() {
       }
     }
 
-    console.log('Seed concluído com sucesso!');
+    console.log('Iniciando seed de participantes...');
+    const participantesSeed = [
+      // Doadores
+      { anonimo: true, nome: null, endereco: null, contato: null },
+      { anonimo: false, nome: 'João da Silva', endereco: 'Rua das Flores, 123', contato: '(11) 98765-4321' },
+      { anonimo: false, nome: 'Maria Oliveira', endereco: 'Avenida Central, 456', contato: '(21) 91234-5678' },
+
+      // Recebedores
+      { anonimo: false, nome: 'Escola Municipal João XXIII', endereco: 'Rua da Esperança, 789', contato: '(31) 99876-5432' },
+      { anonimo: false, nome: 'Creche Estrela do Amanhã', endereco: 'Praça da Alegria, 123', contato: '(41) 97654-3210' },
+    ];
+
+    for (const participante of participantesSeed) {
+      const participanteExistente = await Participante.findOne({
+        where: { nome: participante.nome, anonimo: participante.anonimo },
+      });
+
+      if (!participanteExistente) {
+        await Participante.create(participante);
+        console.log(`Participante "${participante.nome || 'Anônimo'}" criado.`);
+      } else {
+        console.log(`Participante "${participante.nome || 'Anônimo'}" já existe.`);
+      }
+    }
+
+    console.log('Seed do banco de dados concluído com sucesso!');
   } catch (error) {
-    console.error('Erro durante o seed:', error);
+    console.error('Erro ao executar o seed do banco de dados:', error);
   }
 }
 
