@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const Usuario = require('../models/Usuario');
 const Produto = require('../models/Produto');
 const Participante = require('../models/Participante');
+const MovimentacaoProduto = require('../models/MovimentacaoProduto');
+const Estoque = require('../models/Estoque'); // Adicionando o modelo de Estoque
 
 async function criarSeed() {
   try {
@@ -44,19 +46,24 @@ async function criarSeed() {
 
     console.log('Iniciando seed de produtos...');
     const produtosSeed = [
-      { nome: 'Absorvente', categoria: 'não reutilizável' },
-      { nome: 'Absorvente noturno', categoria: 'não reutilizável' },
-      { nome: 'Protetor diário', categoria: 'não reutilizável' },
-      { nome: 'Coletor menstrual', categoria: 'reutilizável' },
-      { nome: 'Calcinhas absorventes', categoria: 'reutilizável' },
-      { nome: 'Absorvente de pano', categoria: 'reutilizável' }
+      { nome: 'Absorvente', categoria: 'não reutilizável', estoque: 0 },
+      { nome: 'Absorvente noturno', categoria: 'não reutilizável', estoque: 0 },
+      { nome: 'Protetor diário', categoria: 'não reutilizável', estoque: 0 },
+      { nome: 'Coletor menstrual', categoria: 'reutilizável', estoque: 0 },
+      { nome: 'Calcinhas absorventes', categoria: 'reutilizável', estoque: 0 },
+      { nome: 'Absorvente de pano', categoria: 'reutilizável', estoque: 0 }
     ];
 
     for (const produto of produtosSeed) {
       const produtoExistente = await Produto.findOne({ where: { nome: produto.nome } });
       if (!produtoExistente) {
-        await Produto.create(produto);
+        const novoProduto = await Produto.create(produto);
         console.log(`Produto "${produto.nome}" criado com sucesso.`);
+
+        await Estoque.create({
+          id_produto: novoProduto.id_produto,
+          quantidade_disponivel: produto.estoque,
+        });
       } else {
         console.log(`Produto "${produto.nome}" já existe.`);
       }
@@ -84,6 +91,31 @@ async function criarSeed() {
         console.log(`Participante "${participante.nome || 'Anônimo'}" criado.`);
       } else {
         console.log(`Participante "${participante.nome || 'Anônimo'}" já existe.`);
+      }
+    }
+
+    console.log('Iniciando seed de movimentações...');
+    const movimentacoesSeed = [
+      { tipo_movimentacao: 'entrada', quantidade: 50, id_produto: 1, id_usuario: 1, id_participante: 1 },
+      { tipo_movimentacao: 'entrada', quantidade: 30, id_produto: 2, id_usuario: 1, id_participante: 2 },
+      { tipo_movimentacao: 'saida', quantidade: 10, id_produto: 1, id_usuario: 2, id_participante: 4 },
+      { tipo_movimentacao: 'saida', quantidade: 5, id_produto: 2, id_usuario: 2, id_participante: 5 },
+    ];
+
+    for (const movimentacao of movimentacoesSeed) {
+      await MovimentacaoProduto.create(movimentacao);
+
+      const estoque = await Estoque.findOne({ where: { id_produto: movimentacao.id_produto } });
+      if (estoque) {
+        if (movimentacao.tipo_movimentacao === 'entrada') {
+          estoque.quantidade_disponivel += movimentacao.quantidade;
+        } else if (movimentacao.tipo_movimentacao === 'saida') {
+          estoque.quantidade_disponivel -= movimentacao.quantidade;
+        }
+        await estoque.save();
+        console.log(`Estoque atualizado para o produto com ID ${movimentacao.id_produto}: ${estoque.quantidade_disponivel}`);
+      } else {
+        console.error(`Estoque para o produto com ID ${movimentacao.id_produto} não encontrado.`);
       }
     }
 
