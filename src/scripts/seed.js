@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
 const Usuario = require('../models/Usuario');
+const Produto = require('../models/Produto');
 
-async function criarAdmins() {
+async function criarSeed() {
   try {
+    console.log('Iniciando seed de usuários...');
     const adminMasterExistente = await Usuario.findOne({ where: { tipo_acesso: 'admin_master' } });
 
     if (!adminMasterExistente) {
@@ -37,12 +39,32 @@ async function criarAdmins() {
     if (admins.length > 0) {
       await Usuario.bulkCreate(admins);
       console.log('Admins criados com sucesso:', admins.map(admin => admin.nome));
-    } else {
-      console.log('Nenhum novo admin foi criado.');
     }
+
+    console.log('Iniciando seed de produtos...');
+    const produtosSeed = [
+      { nome: 'Absorvente', categoria: 'não reutilizável' },
+      { nome: 'Absorvente noturno', categoria: 'não reutilizável' },
+      { nome: 'Protetor diário', categoria: 'não reutilizável' },
+      { nome: 'Coletor menstrual', categoria: 'reutilizável' },
+      { nome: 'Calcinhas absorventes', categoria: 'reutilizável' },
+      { nome: 'Absorvente de pano', categoria: 'reutilizável' }
+    ];
+
+    for (const produto of produtosSeed) {
+      const produtoExistente = await Produto.findOne({ where: { nome: produto.nome } });
+      if (!produtoExistente) {
+        await Produto.create(produto);
+        console.log(`Produto "${produto.nome}" criado com sucesso.`);
+      } else {
+        console.log(`Produto "${produto.nome}" já existe.`);
+      }
+    }
+
+    console.log('Seed concluído com sucesso!');
   } catch (error) {
-    console.error('Erro ao criar os admins:', error);
+    console.error('Erro durante o seed:', error);
   }
 }
 
-module.exports = criarAdmins;
+module.exports = criarSeed;
