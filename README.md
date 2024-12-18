@@ -56,7 +56,7 @@ src
     docker-compose up -d --build
    ```
 
-5. Inicie o servidor:
+4. Inicie o servidor:
    ```bash
    npm run dev
    ```
