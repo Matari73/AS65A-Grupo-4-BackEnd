@@ -5,8 +5,7 @@ class EstoqueController {
     static async listarEstoque(req, res) {
         try {
             const estoque = await Estoque.findAll({
-                include: [{ model: Produto, attributes: ['nome', 'categoria'] }],
-                attributes: ['id_estoque', 'quantidade_disponivel', 'updated_at'],
+                include: [{ model: Produto }],
             });
 
             if (estoque.length === 0) {
@@ -38,7 +37,6 @@ class EstoqueController {
 
             const estoque = await Estoque.findOne({
                 where: { id_produto: produto.id_produto },
-                attributes: ['id_estoque', 'quantidade_disponivel', 'updated_at'],
             });
 
             if (!estoque) {
