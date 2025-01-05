@@ -25,20 +25,58 @@ src
 ---
 
 ## Tecnologias Utilizadas
-- **Node.js**: Ambiente de execução para JavaScript.
+### Ferramentas para codificar, compilar e executar o projeto:
 
-- **Express.js**: Framework web para criação de APIs RESTful.
+- **Node.js**: Ambiente de execução para JavaScript no lado do servidor.  
+    **Versão**: v20.16.0  
+    **Link**: [Node.js](https://nodejs.org/)
+    
+- **Express.js**: Framework web para criação de APIs RESTful.  
+    **Versão**: express@4.21.1  
+    **Link**: [Express.js](https://expressjs.com/)
+    
+- **Sequelize**: ORM para modelagem de dados e interação com o banco de dados.  
+    **Versão**: sequelize@6.37.5  
+    **Link**: [Sequelize](https://sequelize.org/)
+    
+- **Docker**: Plataforma de conteinerização para criar, implantar e executar aplicações em ambientes isolados.  
+    **Versão**: 27.3.1  
+    **Link**: [Docker](https://www.docker.com/)
+    
+- **docker-compose**: Orquestração de múltiplos contêineres Docker.  
+    **Versão**: 1.29.2  
+    **Link**: [Docker Compose](https://docs.docker.com/compose/)
+    
 
-- **Sequelize**: ORM para modelagem de dados e interação com o banco de dados.
+### Ferramentas para criar e hospedar a base de dados:
 
-- **PostgreSQL**: Banco de dados relacional utilizado no projeto.
+- **PostgreSQL**: Banco de dados relacional utilizado no projeto.  
+    **Versão**: 16.6  
+    **Link**: [PostgreSQL](https://www.postgresql.org/)
+    
+- **PgAdmin4**: Interface gráfica para gerenciamento e administração do banco de dados PostgreSQL.  
+    **Versão**: 8.14  
+    **Link**: [PgAdmin4](https://www.pgadmin.org/)
+    
 
-- **Docker**: Contêinerização para ambiente de desenvolvimento/produção.
+### Bibliotecas e ferramentas complementares:
 
-- **docker-compose**: Orquestração de múltiplos contêineres Docker.
-
-- **PgAdmin4**: Interface gráfica para gerenciamento e administração do banco de dados PostgreSQL;
-
+- **bcrypt**: Biblioteca para hashing de senhas.  
+    **Versão**: bcrypt@5.1.0  
+    **Link**: [bcrypt](https://www.npmjs.com/package/bcrypt)
+    
+- **jsonwebtoken (JWT)**: Biblioteca para autenticação baseada em tokens.  
+    **Versão**: jsonwebtoken@9.0.2  
+    **Link**: [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+    
+- **dotenv**: Biblioteca para gerenciamento de variáveis de ambiente.  
+    **Versão**: dotenv@16.1.4  
+    **Link**: [dotenv](https://www.npmjs.com/package/dotenv)
+    
+- **nodemon**: Ferramenta para reiniciar automaticamente o servidor durante o desenvolvimento.  
+    **Versão**: nodemon@3.0.1  
+    **Link**: [nodemon](https://www.npmjs.com/package/nodemon)
+    
 ---
 
 ## Configuração do Ambiente
@@ -63,3 +101,21 @@ src
    npm run dev
    ```
 
+---
+
+## Testando o Sistema
+
+Os testes podem ser realizados usando a interface do front-end do sistema. Para acessar o repositório do front-end e seguir as instruções de configuração, acesse: [AS65A-Grupo-4-FrontEnd](https://github.com/Serg-Ale/AS65A-Grupo-4-FrontEnd).
+
+### Conta de Acesso Padrão
+
+O projeto possui um arquivo `seed.js` que insere um usuário do tipo `admin_master` no banco de dados com as seguintes credenciais:
+
+- **Nome**: `admin_master`
+- **Senha**: `sua_senha_segura_master`
+
+Essas credenciais devem ser utilizadas para realizar o login na aplicação.
+
+O arquivo `seed.js` também insere produtos, participantes e movimentações iniciais. Para realizar movimentações, é necessário que os produtos e participantes envolvidos sejam cadastrados previamente no sistema.
+
+---
