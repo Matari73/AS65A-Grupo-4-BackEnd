@@ -7,11 +7,7 @@ const movimentacoes = require('./movimentacaoRoutes.js')
 const cors = require('cors');
 
 const routes = (app) => {
-    app.use(cors({
-        origin: '*',
-        methods: ['GET', 'POST'],
-        credentials: true,
-    }));
+    app.use(cors());
     app.use(express.json());
     app.use(produtos);
     app.use(participantes);

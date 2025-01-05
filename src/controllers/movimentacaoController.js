@@ -54,9 +54,9 @@ class MovimentacaoController {
         try {
             const movimentacoes = await MovimentacaoProduto.findAll({
                 include: [
-                    { model: Produto, attributes: ['nome'] },
-                    { model: Usuario, attributes: ['nome'] },
-                    { model: Participante, attributes: ['nome'] },
+                    { model: Produto },
+                    { model: Usuario },
+                    { model: Participante },
                 ],
             });
             res.status(200).json(movimentacoes);
@@ -74,10 +74,10 @@ class MovimentacaoController {
                     {
                         model: Produto,
                         where: { nome },
-                        attributes: ['nome']
+
                     },
-                    { model: Usuario, attributes: ['nome'] },
-                    { model: Participante, attributes: ['nome'] },
+                    { model: Usuario },
+                    { model: Participante },
                 ],
             });
             res.status(200).json(movimentacoes);
@@ -95,10 +95,10 @@ class MovimentacaoController {
                     {
                         model: Usuario,
                         where: { nome },
-                        attributes: ['nome']
+
                     },
-                    { model: Produto, attributes: ['nome'] },
-                    { model: Participante, attributes: ['nome'] },
+                    { model: Produto },
+                    { model: Participante },
                 ],
             });
             res.status(200).json(movimentacoes);
@@ -116,10 +116,10 @@ class MovimentacaoController {
                     {
                         model: Participante,
                         where: { nome },
-                        attributes: ['nome']
+
                     },
-                    { model: Produto, attributes: ['nome'] },
-                    { model: Usuario, attributes: ['nome'] },
+                    { model: Produto },
+                    { model: Usuario },
                 ],
             });
             res.status(200).json(movimentacoes);
@@ -135,9 +135,9 @@ class MovimentacaoController {
             const movimentacoes = await MovimentacaoProduto.findAll({
                 where: { tipo_movimentacao },
                 include: [
-                    { model: Produto, attributes: ['nome'] },
-                    { model: Usuario, attributes: ['nome'] },
-                    { model: Participante, attributes: ['nome'] },
+                    { model: Produto },
+                    { model: Usuario },
+                    { model: Participante },
                 ],
             });
             res.status(200).json(movimentacoes);
