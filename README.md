@@ -35,7 +35,9 @@ src
 
 - **Docker**: Contêinerização para ambiente de desenvolvimento/produção.
 
-- **docker-compose**: Orquestração de múltiplos contêineres Docker;
+- **docker-compose**: Orquestração de múltiplos contêineres Docker.
+
+- **PgAdmin4**: Interface gráfica para gerenciamento e administração do banco de dados PostgreSQL;
 
 ---
 
