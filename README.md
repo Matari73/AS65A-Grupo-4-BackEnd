@@ -4,6 +4,12 @@ Este projeto tem como objetivo desenvolver o back-end para a disciplina Certific
 A proposta central é implementar um sistema de gestão de estoque para o projeto de extensão Bons Fluidos, uma iniciativa da mesma instituição que busca apoiar meninas de outras entidades com a doação de produtos de higiene feminina.
 
 
+--- 
+
+## Desenvolvedoras Back-end
+
+- **Giovana Araújo Hoffmann**
+- **Mariana de Oliveira**
 
 ---
 
@@ -21,6 +27,32 @@ src
 ├── scripts       # Scripts auxiliares para tarefas externas
 └── app.js        # Configuração principal da aplicação
 ```
+
+---
+
+## Funcionalidades Principais
+
+1. **Autenticação**
+    
+    - Dois tipos de usuários: `admin_master` e `admin`.
+    - Sistema só permite a existência de um usuário `admin_master` no banco.
+    - Registro de movimentações, cadastro de produtos e participantes permitido para ambos.
+    - Criação e exclusão de usuários permitido apenas para o usuário `admin_master`.
+    
+2. **Cadastro e Edição**
+    
+    - Produtos: Cadastro e edição de produtos disponíveis no estoque.
+    - Participantes: Registro e edição de doadores (anônimos ou identificados) e receptores.
+    - Usuários: Registro e edição de usuários (admins ou admin_master).
+    
+1. **Registro de Movimentações**
+    
+    - Registro detalhado de movimentações no estoque:
+        - Tipo: Entrada ou saída.
+        - Quantidade.
+        - Informações do doador ou receptor.
+        - Usuário responsável pelo registro.
+    - Ajuste automático do estoque com base nas movimentações.
 
 ---
 
@@ -105,7 +137,7 @@ src
 
 ## Testando o Sistema
 
-Os testes podem ser realizados usando a interface do front-end do sistema. Para acessar o repositório do front-end e seguir as instruções de configuração, acesse: [AS65A-Grupo-4-FrontEnd](https://github.com/Serg-Ale/AS65A-Grupo-4-FrontEnd).
+Os testes podem ser realizados usando a interface do front-end do sistema, desenvolvida pelo Pedro de Oliveira Machado e pelo Sérgio Alexandre Alvarenga de Almeida. Para acessar o repositório do front-end e seguir as instruções de configuração, acesse: [AS65A-Grupo-4-FrontEnd](https://github.com/Serg-Ale/AS65A-Grupo-4-FrontEnd).
 
 ### Conta de Acesso Padrão
 
